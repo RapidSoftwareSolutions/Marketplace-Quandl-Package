@@ -41,7 +41,7 @@
                 },
                 {
                     "name": "datasetCode",
-                    "type": "Select",
+                    "type": "String",
                     "info": "Code identifying the dataset.",
                     "required": true
                 }
@@ -154,7 +154,7 @@
                         "cumul",
                         "normalize"
                     ],
-                    "info": "Change the sampling frequency of the returned data.",
+                    "info": "Perform elementary calculations on the data prior to downloading. Default is none. Calculation options are described below.",
                     "required": false
                 }
             ],
@@ -199,7 +199,7 @@
                 },
                 {
                     "name": "datasetCode",
-                    "type": "Select",
+                    "type": "String",
                     "info": "Code identifying the dataset.",
                     "required": true
                 }
@@ -238,7 +238,7 @@
                 },
                 {
                     "name": "datasetCode",
-                    "type": "Select",
+                    "type": "String",
                     "info": "Code identifying the dataset.",
                     "required": true
                 }
@@ -310,7 +310,7 @@
         },
         {
             "name": "filterColumns",
-            "description": "It is possible to download only certain desired rows from a table, by specifying one or more columns to act as criteria to filter rows. If the value in a given column matches the filter argument, then the row containing that value is returned.",
+            "description": "It is possible to select specific table columns to download, by identifying them with the columns parameter.",
             "args": [
                 {
                     "name": "apiKey",

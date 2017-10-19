@@ -26,7 +26,7 @@ This call returns data from a specified time-series.
 |-------------|------------|----------
 | apiKey      | credentials| Your API key
 | databaseCode| String     | Code identifying the database to which the dataset belongs.
-| datasetCode | Select     | Code identifying the dataset.
+| datasetCode | String     | Code identifying the dataset.
 
 ## Quandl.getFilteredTimeSeriesData
 You can slice, transform and otherwise customize your time-series dataset prior to download by appending various optional parameters to your query.
@@ -42,7 +42,7 @@ You can slice, transform and otherwise customize your time-series dataset prior 
 | endDate     | DatePicker | Retrieve data rows up to and including the specified end date.
 | order       | Select     | Return data in ascending or descending order of date. Default is desc.
 | collapse    | Select     | Change the sampling frequency of the returned data.
-| transform   | Select     | Change the sampling frequency of the returned data.
+| transform   | Select     | Perform elementary calculations on the data prior to downloading. Default is none. Calculation options are described below.
 
 ## Quandl.getTimeSeriesMetaData
 This call returns metadata from a specified time-series.
@@ -51,7 +51,7 @@ This call returns metadata from a specified time-series.
 |-------------|------------|----------
 | apiKey      | credentials| Your API key
 | databaseCode| String     | Code identifying the database to which the dataset belongs.
-| datasetCode | Select     | Code identifying the dataset.
+| datasetCode | String     | Code identifying the dataset.
 
 ## Quandl.getTimeSeriesAllData
 This call returns metadata and data from a specified time-series.
@@ -60,7 +60,7 @@ This call returns metadata and data from a specified time-series.
 |-------------|------------|----------
 | apiKey      | credentials| Your API key
 | databaseCode| String     | Code identifying the database to which the dataset belongs.
-| datasetCode | Select     | Code identifying the dataset.
+| datasetCode | String     | Code identifying the dataset.
 
 ## Quandl.filterRows
 It is possible to download only certain desired rows from a table, by specifying one or more columns to act as criteria to filter rows. If the value in a given column matches the filter argument, then the row containing that value is returned.
@@ -73,7 +73,7 @@ It is possible to download only certain desired rows from a table, by specifying
 | filterValue      | String     | Filter value. Example: SPY
 
 ## Quandl.filterColumns
-It is possible to download only certain desired rows from a table, by specifying one or more columns to act as criteria to filter rows. If the value in a given column matches the filter argument, then the row containing that value is returned.
+It is possible to select specific table columns to download, by identifying them with the columns parameter.
 
 | Field        | Type       | Description
 |--------------|------------|----------
