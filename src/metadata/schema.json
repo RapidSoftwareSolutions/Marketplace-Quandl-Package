@@ -1,0 +1,505 @@
+{
+    "package": "Quandl",
+    "tagline": "Quandl API",
+    "description": "Quandl has a vast collection of free and open data collected from a variety of organizations: central banks, governments, multinational organizations and more. You can use it without payment and with few restrictions.",
+    "image": "https://logo.clearbit.com/quandl.com",
+    "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-Quandl-Package",
+    "keywords": [
+        "API",
+        "quandl",
+        "data"
+    ],
+    "accounts": {
+        "domain": "https://www.quandl.com",
+        "credentials": [
+            "apiKey"
+        ]
+    },
+    "steps": [
+        "To get an API key, please sign up for a free Quandl account. https://www.quandl.com/account",
+        "You can find your API key on your account settings page. https://www.quandl.com/account/api"
+    ],
+    "blocks": [
+        {
+            "name": "getTimeSeriesData",
+            "description": "This call returns data from a specified time-series.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "databaseCode",
+                    "type": "String",
+                    "info": "Code identifying the database to which the dataset belongs.",
+                    "required": true
+                },
+                {
+                    "name": "datasetCode",
+                    "type": "Select",
+                    "info": "Code identifying the dataset.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datasets/{$data['databaseCode']}/{$data['datasetCode']}/data.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "getFilteredTimeSeriesData",
+            "description": "You can slice, transform and otherwise customize your time-series dataset prior to download by appending various optional parameters to your query.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "databaseCode",
+                    "type": "String",
+                    "info": "Code identifying the database to which the dataset belongs.",
+                    "required": true
+                },
+                {
+                    "name": "datasetCode",
+                    "type": "String",
+                    "info": "Code identifying the dataset.",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.",
+                    "required": false
+                },
+                {
+                    "name": "columnIndex",
+                    "type": "Number",
+                    "info": "Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "column_index"
+                    }
+                },
+                {
+                    "name": "startDate",
+                    "type": "DatePicker",
+                    "info": "Retrieve data rows on and after the specified start date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "start_date",
+                        "format": "toFormat:{Y-m-d}"
+                    }
+                },
+                {
+                    "name": "endDate",
+                    "type": "DatePicker",
+                    "info": "Retrieve data rows up to and including the specified end date.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "end_date",
+                        "format": "toFormat:{Y-m-d}"
+                    }
+                },
+                {
+                    "name": "order",
+                    "type": "Select",
+                    "options": [
+                        "asc",
+                        "desc"
+                    ],
+                    "info": "Return data in ascending or descending order of date. Default is desc.",
+                    "required": false
+                },
+                {
+                    "name": "collapse",
+                    "type": "Select",
+                    "options": [
+                        "none",
+                        "daily",
+                        "weekly",
+                        "monthly",
+                        "quarterly",
+                        "annual"
+                    ],
+                    "info": "Change the sampling frequency of the returned data.",
+                    "required": false
+                },
+                {
+                    "name": "transform",
+                    "type": "Select",
+                    "options": [
+                        "none",
+                        "diff",
+                        "rdiff",
+                        "rdiff_from",
+                        "cumul",
+                        "normalize"
+                    ],
+                    "info": "Change the sampling frequency of the returned data.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datasets/{$data['databaseCode']}/{$data['datasetCode']}/data.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key",
+                            "limit",
+                            "column_index",
+                            "start_date",
+                            "end_date",
+                            "order",
+                            "collapse",
+                            "transform"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "getTimeSeriesMetaData",
+            "description": "This call returns metadata from a specified time-series.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "databaseCode",
+                    "type": "String",
+                    "info": "Code identifying the database to which the dataset belongs.",
+                    "required": true
+                },
+                {
+                    "name": "datasetCode",
+                    "type": "Select",
+                    "info": "Code identifying the dataset.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datasets/{$data['databaseCode']}/{$data['datasetCode']}/metadata.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "getTimeSeriesAllData",
+            "description": "This call returns metadata and data from a specified time-series.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "databaseCode",
+                    "type": "String",
+                    "info": "Code identifying the database to which the dataset belongs.",
+                    "required": true
+                },
+                {
+                    "name": "datasetCode",
+                    "type": "Select",
+                    "info": "Code identifying the dataset.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datasets/{$data['databaseCode']}/{$data['datasetCode']}.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "filterRows",
+            "description": "It is possible to download only certain desired rows from a table, by specifying one or more columns to act as criteria to filter rows. If the value in a given column matches the filter argument, then the row containing that value is returned.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "datatableCode",
+                    "type": "String",
+                    "info": "Code identifying the datatable.",
+                    "required": true
+                },
+                {
+                    "name": "rowFilterCriteria",
+                    "type": "Select",
+                    "options": [
+                        "date",
+                        "ticker",
+                        "shares_oustanding",
+                        "nav",
+                        "flow_daily"
+                    ],
+                    "info": "The filter examples below all involve the ETFG/FUND table. This particular table is filterable on columns date, ticker, shares_oustanding, nav and flow_daily. This means that users can narrow down their request to rows with specific values of date, ticker, shares_oustanding, nav and flow_daily.",
+                    "required": true
+                },
+                {
+                    "name": "filterValue",
+                    "type": "String",
+                    "info": "Filter value. Example: SPY",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datatables/{$data['datatableCode']}.json?{$data['rowFilterCriteria']}={$data['filterValue']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "filterColumns",
+            "description": "It is possible to download only certain desired rows from a table, by specifying one or more columns to act as criteria to filter rows. If the value in a given column matches the filter argument, then the row containing that value is returned.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "datatableCode",
+                    "type": "String",
+                    "info": "Code identifying the datatable.",
+                    "required": true
+                },
+                {
+                    "name": "qoptsColumns",
+                    "type": "String",
+                    "info": "Request data from specific columns by passing the qopts.columns parameter.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name":"qopts.columns"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datatables/{$data['datatableCode']}.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key",
+                            "qopts.columns"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "filterRowsAndColumns",
+            "description": "You can filter on both rows and columns by appending both filter types to your API request.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "datatableCode",
+                    "type": "String",
+                    "info": "Code identifying the datatable.",
+                    "required": true
+                },
+                {
+                    "name": "columnFilterCriteria",
+                    "type": "String",
+                    "info": "Column filter string",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "column_filter_criteria"
+                    }
+                },
+                {
+                    "name": "rowFilterCriteria",
+                    "type": "String",
+                    "info": "Rows filter string",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "row_filter_criteria"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datatables/{$data['datatableCode']}.json?{$data['column_filter_criteria']}&{$data['row_filter_criteria']}",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "getTableMetadata",
+            "description": "Get table metadata",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "datatableCode",
+                    "type": "String",
+                    "info": "Code identifying the datatable.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datatables/{$data['datatableCode']}/metadata.json",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "downloadEntrieTable",
+            "description": "Alternatively, we have created an exporter function that will download the entire table as a zipped CSV file.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "datatableCode",
+                    "type": "String",
+                    "info": "Code identifying the datatable.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datatables/{$data['datatableCode']}?qopts.export=true",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "getEntrieTable",
+            "description": "Return table entrie",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "api_key"
+                    }
+                },
+                {
+                    "name": "datatableCode",
+                    "type": "String",
+                    "info": "Code identifying the datatable.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://www.quandl.com/api/v3/datatables/{$data['datatableCode']}.json?qopts.export=true",
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "api_key"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
